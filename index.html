@@ -353,14 +353,6 @@
         <small style="color:#c98672;">✨ click play & enjoy the melody</small>
     </div>
 
-    <!-- INSTRUCTION SECTION for adding personal photos & videos -->
-    <div class="custom-guide">
-        <h4><i class="fas fa-star-of-life"></i> how to add YOUR specific photos & videos</h4>
-        <p>📸 <strong>Add your own pictures:</strong> Scroll down in the code to the <code>photoSet</code> array (around line 310). Replace the image URLs with your own image links (use free hosting like Imgur, Google Drive shared links, or local paths if hosting).</p>
-        <p>🎬 <strong>Fix / customize videos:</strong> Find <code>videoSet</code> array (around line 320). Replace the video URLs with your own video files (upload to cloud or use your own .mp4 links). I've already added <strong>fully functional video examples</strong> from Pixabay (safe & working).</p>
-        <p>💡 <strong>Pro tip:</strong> To use local images/videos, put them in a folder named "assets" and use paths like <code>"assets/photo1.jpg"</code> or <code>"assets/video.mp4"</code>. The carousels will automatically update.</p>
-    </div>
-
     <!-- PHOTO CAROUSEL (sweet memories) -->
     <div class="carousel-container">
         <div class="section-title">
@@ -420,11 +412,6 @@
         { src: "https://cdn.pixabay.com/video/2020/09/06/50260-456278220_large.mp4", caption: "soft hugs & warmth 🧸" },
         { src: "https://cdn.pixabay.com/video/2016/06/28/4426-173639320_large.mp4", caption: "butterflies in the park 🦋" }
     ];
-    // 💡 Replace with your own video links:
-    // { src: "videos/myfunnyclip.mp4", caption: "laughing together" },
-    // Make sure your video files are .mp4 format for best compatibility.
-
-    // sweet messages (editable too)
     const sweetMessages = [
         { icon: "fa-solid fa-star", text: "you make life brighter" },
         { icon: "fa-regular fa-face-smile", text: "your laugh is my favorite song" },
