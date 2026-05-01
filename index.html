@@ -1,0 +1,640 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bloom & Melody | For My Best Friend ✨</title>
+    <!-- Google Fonts + Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(145deg, #fff9f5 0%, #ffe9e0 100%);
+            color: #4a2e2a;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffe0d4;
+            border-radius: 20px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e8a48f;
+            border-radius: 20px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1rem 2rem 4rem;
+        }
+
+        /* header */
+        .hero {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            animation: fadeInDown 1s ease;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #c4695f, #f5b7a5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #b27062;
+            margin-top: 0.5rem;
+        }
+        .cute-divider {
+            width: 80px;
+            height: 4px;
+            background: #f6c3b3;
+            margin: 1rem auto;
+            border-radius: 10px;
+        }
+
+        /* music player card */
+        .music-section {
+            background: rgba(255, 248, 240, 0.8);
+            backdrop-filter: blur(6px);
+            border-radius: 48px;
+            padding: 1.2rem 2rem;
+            margin: 2rem 0 3rem;
+            box-shadow: 0 20px 35px rgba(196, 105, 95, 0.15);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            border: 1px solid #ffe1d4;
+        }
+        .music-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #be7c6b;
+        }
+        .music-label i {
+            font-size: 2rem;
+            color: #e89f89;
+        }
+        audio {
+            height: 45px;
+            border-radius: 60px;
+            background: #fff2ea;
+            outline: none;
+            flex: 1;
+            min-width: 220px;
+        }
+
+        /* carousel common styles */
+        .carousel-container {
+            margin: 3rem 0;
+        }
+        .section-title {
+            font-size: 1.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #7c5548;
+            border-left: 6px solid #f0aa93;
+            padding-left: 18px;
+        }
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 22px;
+            padding: 20px 8px;
+            scrollbar-width: thin;
+            scroll-snap-type: x mandatory;
+            border-radius: 32px;
+        }
+        .carousel::-webkit-scrollbar {
+            height: 6px;
+        }
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 280px;
+            scroll-snap-align: start;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            background: #fffaf7;
+        }
+        .carousel-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 40px rgba(145, 85, 70, 0.2);
+        }
+        .carousel-item img, .carousel-item video {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            background: #f3e1d8;
+        }
+        .carousel-caption {
+            padding: 14px;
+            text-align: center;
+            font-weight: 500;
+            color: #aa6a59;
+            background: #fffaf5;
+            font-size: 0.9rem;
+        }
+
+        /* video items: ensure controls visible and functional */
+        .carousel-item video {
+            background: #1e1a18;
+            cursor: pointer;
+        }
+
+        .arrow-btn {
+            background: #f5cfc2;
+            border: none;
+            color: #b45b48;
+            width: 44px;
+            height: 44px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+            z-index: 2;
+            flex-shrink: 0;
+        }
+        .arrow-btn:hover {
+            background: #e8b09b;
+            color: white;
+            transform: scale(1.03);
+        }
+        .arrow-left {
+            margin-right: 12px;
+        }
+        .arrow-right {
+            margin-left: 12px;
+        }
+
+        /* sweet notes */
+        .sweet-notes {
+            background: #fff5ef;
+            border-radius: 48px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 18px 35px rgba(130, 70, 55, 0.1);
+            border: 1px solid #ffddd2;
+        }
+        .sweet-notes h3 {
+            font-size: 1.8rem;
+            color: #bf7a67;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .notes-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 28px;
+        }
+        .note-card {
+            background: white;
+            border-radius: 40px;
+            padding: 1rem 1.6rem;
+            width: 200px;
+            transition: all 0.2s;
+            cursor: pointer;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            border: 1px solid #ffe0d4;
+        }
+        .note-card i {
+            font-size: 2rem;
+            color: #e9a48b;
+            margin-bottom: 8px;
+        }
+        .note-card p {
+            font-weight: 500;
+            color: #9b6253;
+        }
+        .note-card:hover {
+            background: #ffefe7;
+            transform: scale(1.02);
+        }
+
+        .floating-heart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #f2c4b6;
+            border-radius: 60px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #633e34;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.2s;
+            z-index: 99;
+        }
+        .floating-heart i {
+            margin-right: 6px;
+            color: #ff6b6b;
+        }
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: #bd897a;
+            font-weight: 500;
+        }
+        /* instructions box */
+        .custom-guide {
+            background: #fff4ea;
+            border-radius: 32px;
+            padding: 1.4rem;
+            margin: 2rem 0 1rem;
+            border-left: 8px solid #f2aa8f;
+            font-size: 0.95rem;
+        }
+        .custom-guide h4 {
+            color: #b1624e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .custom-guide code {
+            background: #fce9df;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-family: monospace;
+            color: #a5523b;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 780px) {
+            .container {
+                padding: 1rem;
+            }
+            .carousel-item {
+                width: 240px;
+            }
+            .music-section {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>✨ for my dearest bestie ✨</h1>
+        <div class="cute-divider"></div>
+        <p>a little universe of us — photos, melodies & endless sweet things</p>
+    </div>
+
+    <!-- music player with a sweet lofi bgm (public domain / friendly track) -->
+    <div class="music-section">
+        <div class="music-label">
+            <i class="fas fa-head-side-heart"></i>
+            <span>🎵 our vibe track</span>
+        </div>
+        <audio controls loop autoplay>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            Your browser does not support audio, but our friendship is pure harmony 💕
+        </audio>
+        <small style="color:#c98672;">✨ click play & enjoy the melody</small>
+    </div>
+
+    <!-- INSTRUCTION SECTION for adding personal photos & videos -->
+    <div class="custom-guide">
+        <h4><i class="fas fa-star-of-life"></i> how to add YOUR specific photos & videos</h4>
+        <p>📸 <strong>Add your own pictures:</strong> Scroll down in the code to the <code>photoSet</code> array (around line 310). Replace the image URLs with your own image links (use free hosting like Imgur, Google Drive shared links, or local paths if hosting).</p>
+        <p>🎬 <strong>Fix / customize videos:</strong> Find <code>videoSet</code> array (around line 320). Replace the video URLs with your own video files (upload to cloud or use your own .mp4 links). I've already added <strong>fully functional video examples</strong> from Pixabay (safe & working).</p>
+        <p>💡 <strong>Pro tip:</strong> To use local images/videos, put them in a folder named "assets" and use paths like <code>"assets/photo1.jpg"</code> or <code>"assets/video.mp4"</code>. The carousels will automatically update.</p>
+    </div>
+
+    <!-- PHOTO CAROUSEL (sweet memories) -->
+    <div class="carousel-container">
+        <div class="section-title">
+            <i class="fas fa-camera-retro"></i>
+            <span>📸 glow moments & smiles</span>
+        </div>
+        <div class="carousel-wrapper">
+            <button class="arrow-btn arrow-left" id="photoLeftBtn"><i class="fas fa-chevron-left"></i></button>
+            <div class="carousel" id="photoCarousel"></div>
+            <button class="arrow-btn arrow-right" id="photoRightBtn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <!-- VIDEO CAROUSEL (fully functional short clips) -->
+    <div class="carousel-container">
+        <div class="section-title">
+            <i class="fas fa-video"></i>
+            <span>🎬 tiny cinema — fun & laughter</span>
+        </div>
+        <div class="carousel-wrapper">
+            <button class="arrow-btn arrow-left" id="videoLeftBtn"><i class="fas fa-chevron-left"></i></button>
+            <div class="carousel" id="videoCarousel"></div>
+            <button class="arrow-btn arrow-right" id="videoRightBtn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <!-- Sweet things: interactive notes -->
+    <div class="sweet-notes">
+        <h3><i class="fas fa-candy-cane"></i> sweet jar of us <i class="fas fa-heart" style="color:#f5a97f;"></i></h3>
+        <div class="notes-grid" id="sweetsGrid"></div>
+        <p style="margin-top: 1.2rem; font-style:italic;">✨ click on any sweetness — a little magic appears ✨</p>
+    </div>
+
+    <div class="floating-heart" id="surpriseBtn">
+        <i class="fas fa-gift"></i> secret hug 💌
+    </div>
+    <footer>
+        🌸 made with all my heart for you — every pixel is a smile 🌸
+    </footer>
+</div>
+
+<script>
+    const photoSet = [
+        { src: "img7.jpg", caption: "coffee & deep talks ☕" },
+        { src: "img1.jpg", caption: "sunset bestie walks 🌇" },
+        { src: "img2.jpg", caption: "mountains & memories ⛰️" },
+        { src: "img3.jpg", caption: "sunflowers & laughter 🌻" },
+        { src: "img4.jpg", caption: "autumn whispers 🍂" },
+        { src: "img6.jpg", caption: "ocean breeze 🌊" },
+        { src: "img8.jpg", caption: "sparkle & joy ✨" },
+        { src: "img5.jpg", caption: "cherry blossoms 🌸" }
+]
+    const videoSet = [
+        { src: "https://cdn.pixabay.com/video/2022/06/12/121361-723792420_large.mp4", caption: "🌸 dancing petals & us" },
+        { src: "https://cdn.pixabay.com/video/2016/07/27/4808-176641354_large.mp4", caption: "golden hour giggles 🌅" },
+        { src: "https://cdn.pixabay.com/video/2017/11/18/13011-242423645_large.mp4", caption: "BFF adventure 🚲" },
+        { src: "https://cdn.pixabay.com/video/2020/09/06/50260-456278220_large.mp4", caption: "soft hugs & warmth 🧸" },
+        { src: "https://cdn.pixabay.com/video/2016/06/28/4426-173639320_large.mp4", caption: "butterflies in the park 🦋" }
+    ];
+    // 💡 Replace with your own video links:
+    // { src: "videos/myfunnyclip.mp4", caption: "laughing together" },
+    // Make sure your video files are .mp4 format for best compatibility.
+
+    // sweet messages (editable too)
+    const sweetMessages = [
+        { icon: "fa-solid fa-star", text: "you make life brighter" },
+        { icon: "fa-regular fa-face-smile", text: "your laugh is my favorite song" },
+        { icon: "fa-solid fa-mug-hot", text: "endless hot chocolate talks" },
+        { icon: "fa-regular fa-heart", text: "grateful for you every day" },
+        { icon: "fa-solid fa-sparkles", text: "magic happens when we're together" },
+        { icon: "fa-regular fa-sun", text: "my sunshine bestie ☀️" }
+    ];
+
+    // Helper: populate photos & videos
+    function populateCarousel(containerId, items, isVideo = false) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '';
+        items.forEach(item => {
+            const carouselDiv = document.createElement('div');
+            carouselDiv.className = 'carousel-item';
+            if (isVideo) {
+                const video = document.createElement('video');
+                video.src = item.src;
+                video.controls = true;       // shows play/pause, volume, etc → FULLY FUNCTIONAL
+                video.muted = false;          // unmuted by default, user can adjust
+                video.loop = false;
+                video.playsInline = true;
+                video.preload = "metadata";
+                // optional: allow autoplay attempt but avoid aggressive policy - user clicks play
+                // but to make it interactive, we add nice hover preview? but not needed.
+                // ensure video displays poster frame if available.
+                video.setAttribute('controlsList', 'nodownload'); // optional
+                carouselDiv.appendChild(video);
+                // small extra: if video fails to load due to CORS/source, show friendly text
+                video.onerror = () => {
+                    const errorMsg = document.createElement('div');
+                    errorMsg.innerText = "💖 video coming soon!";
+                    errorMsg.style.padding = "1rem";
+                    errorMsg.style.textAlign = "center";
+                    errorMsg.style.color = "#b96f5a";
+                    carouselDiv.appendChild(errorMsg);
+                };
+            } else {
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.alt = item.caption;
+                img.loading = "lazy";
+                // if image fails to load, use fallback emoji
+                img.onerror = () => {
+                    img.src = "https://via.placeholder.com/400x300?text=✨+sweet+memory+✨";
+                };
+                carouselDiv.appendChild(img);
+            }
+            const captionSpan = document.createElement('div');
+            captionSpan.className = 'carousel-caption';
+            captionSpan.innerText = item.caption;
+            carouselDiv.appendChild(captionSpan);
+            container.appendChild(carouselDiv);
+        });
+    }
+
+    // populate both carousels
+    populateCarousel('photoCarousel', photoSet, false);
+    populateCarousel('videoCarousel', videoSet, true);
+
+    // Sweet notes grid
+    function populateSweetNotes() {
+        const grid = document.getElementById('sweetsGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        sweetMessages.forEach((msg) => {
+            const card = document.createElement('div');
+            card.className = 'note-card';
+            const iconEl = document.createElement('i');
+            iconEl.className = msg.icon;
+            const pEl = document.createElement('p');
+            pEl.innerText = msg.text;
+            card.appendChild(iconEl);
+            card.appendChild(pEl);
+            card.addEventListener('click', () => {
+                showSweetToast(`✨ ${msg.text} ✨`, '#fecfba');
+            });
+            grid.appendChild(card);
+        });
+    }
+    populateSweetNotes();
+
+    // Toast notif
+    function showSweetToast(message, bgColor = '#ffdfce') {
+        const toast = document.createElement('div');
+        toast.innerText = message;
+        toast.style.position = 'fixed';
+        toast.style.bottom = '90px';
+        toast.style.left = '50%';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.backgroundColor = bgColor;
+        toast.style.color = '#754c3e';
+        toast.style.padding = '12px 24px';
+        toast.style.borderRadius = '60px';
+        toast.style.fontWeight = 'bold';
+        toast.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+        toast.style.zIndex = '1000';
+        toast.style.fontFamily = "'Quicksand', sans-serif";
+        toast.style.backdropFilter = 'blur(6px)';
+        toast.style.border = '1px solid #ffc8b5';
+        toast.style.fontSize = '1rem';
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.4s';
+            setTimeout(() => toast.remove(), 500);
+        }, 2100);
+    }
+
+    // Carousel scroll buttons
+    function initCarouselButtons(btnLeftId, btnRightId, carouselId) {
+        const leftBtn = document.getElementById(btnLeftId);
+        const rightBtn = document.getElementById(btnRightId);
+        const carousel = document.getElementById(carouselId);
+        if (!leftBtn || !rightBtn || !carousel) return;
+        leftBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+        rightBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+    }
+    initCarouselButtons('photoLeftBtn', 'photoRightBtn', 'photoCarousel');
+    initCarouselButtons('videoLeftBtn', 'videoRightBtn', 'videoCarousel');
+
+    // Surprise floating heart: animated hearts and message
+    const surprise = document.getElementById('surpriseBtn');
+    if (surprise) {
+        surprise.addEventListener('click', () => {
+            for (let i = 0; i < 18; i++) {
+                const heart = document.createElement('i');
+                heart.className = 'fas fa-heart';
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.bottom = '20px';
+                heart.style.color = `hsl(${Math.random() * 20 + 340}, 70%, 65%)`;
+                heart.style.fontSize = `${Math.random() * 22 + 14}px`;
+                heart.style.zIndex = '999';
+                heart.style.opacity = '1';
+                heart.style.transition = 'all 2s ease-out';
+                heart.style.pointerEvents = 'none';
+                document.body.appendChild(heart);
+                const xMove = (Math.random() - 0.5) * 120;
+                setTimeout(() => {
+                    heart.style.transform = `translate(${xMove}px, -420px) rotate(15deg)`;
+                    heart.style.opacity = '0';
+                }, 20);
+                setTimeout(() => heart.remove(), 2000);
+            }
+            showSweetToast('💗 you are so loved! 💗', '#ffe2d6');
+        });
+    }
+
+    // Floating sparkles on load
+    function createSparkles() {
+        for (let i = 0; i < 35; i++) {
+            const spark = document.createElement('div');
+            spark.innerHTML = '✨';
+            spark.style.position = 'fixed';
+            spark.style.left = Math.random() * 100 + '%';
+            spark.style.top = Math.random() * 100 + '%';
+            spark.style.fontSize = '12px';
+            spark.style.opacity = Math.random() * 0.7 + 0.2;
+            spark.style.pointerEvents = 'none';
+            spark.style.zIndex = '1';
+            spark.style.animation = `floatSpark ${Math.random() * 2 + 3}s infinite ease-in-out`;
+            spark.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(spark);
+            setTimeout(() => spark.remove(), 8000);
+        }
+    }
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = `
+        @keyframes floatSpark {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(10deg); opacity: 1; }
+            100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+        }
+    `;
+    document.head.appendChild(styleSheet);
+
+    // Add a helpful function for double-click sweetness on body
+    document.body.addEventListener('dblclick', function(e) {
+        const msgArray = ["💖 besties forever 💖", "you glow!", "sunshine soul", "my favorite person", "stay sweet 🌷", "forever & always"];
+        const randMsg = msgArray[Math.floor(Math.random() * msgArray.length)];
+        showSweetToast(randMsg, "#fbe3d8");
+    });
+
+    // Additional check to ensure videos are interactive: force enable controls and add play button prompt on hover? not needed
+    // but we make sure videos have proper poster / info.
+    window.addEventListener('load', () => {
+        createSparkles();
+        setTimeout(() => {
+            showSweetToast("🌸 welcome to your garden of memories, bestie! 🌸", "#ffded2");
+        }, 700);
+        // small tweak: if any video fails to load due to network, we already handle onerror
+        // Also inform user that they can replace videos with personal files.
+        console.log("✨ All carousels active! Customize by editing photoSet & videoSet arrays ✨");
+    });
+
+    // extra fix: enable video playback on click/tap for mobile friendliness - no extra needed because controls are there.
+    // But for better autoplay, we don't force it. user clicks play. that's fully functional.
+    // also ensure each video loads metadata
+    document.querySelectorAll('#videoCarousel video').forEach(vid => {
+        vid.preload = 'metadata';
+        // small label so users know they can click play
+        vid.addEventListener('loadeddata', () => {});
+    });
+</script>
+</body>
+</html>  
